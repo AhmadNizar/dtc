@@ -1,0 +1,1 @@
+DROP TABLE attendace_periods;
