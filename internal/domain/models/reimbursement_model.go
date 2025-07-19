@@ -12,6 +12,7 @@ type Reimbursement struct {
 	Amount      float64   `gorm:"type:numeric(15,2);not null"`
 	Description string
 
+	Date      time.Time `gorm:"not null"` // actual reimbursement date
 	CreatedBy uuid.UUID
 	UpdatedBy uuid.UUID
 	CreatedAt time.Time
@@ -20,4 +21,5 @@ type Reimbursement struct {
 
 	User          *User `gorm:"foreignKey:UserID"`
 	CreatedByUser *User `gorm:"foreignKey:CreatedBy"`
+	UpdatedByUser *User `gorm:"foreignKey:UpdatedBy"`
 }

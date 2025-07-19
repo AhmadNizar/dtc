@@ -18,7 +18,25 @@ type Payslip struct {
 	TotalTakeHome         float64   `gorm:"type:numeric(15,2);not null"`
 
 	CreatedAt time.Time
+	UpdatedAt time.Time
+	CreatedBy *uuid.UUID `gorm:"type:uuid"`
+	UpdatedBy *uuid.UUID `gorm:"type:uuid"`
+	RequestIP string     `gorm:"type:inet"`
+	RequestID string
 
 	User   *User             `gorm:"foreignKey:UserID"`
 	Period *AttendancePeriod `gorm:"foreignKey:PeriodID"`
+}
+
+type EmployeePayslipSummary struct {
+	EmployeeID   uuid.UUID `json:"employee_id"`
+	EmployeeName string    `json:"employee_name"`
+	TakeHomePay  float64   `json:"take_home_pay"`
+}
+
+type PayslipSummary struct {
+	PeriodID    uuid.UUID                `json:"period_id"`
+	PeriodName  string                   `json:"period_name"`
+	Summaries   []EmployeePayslipSummary `json:"summaries"`
+	TotalPayout float64                  `json:"total_payout"`
 }
