@@ -1,22 +1,35 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"log"
+	"os"
+
+	gajian "github.com/AhmadNizar/dtc/cmd/gajian/http"
+	"github.com/AhmadNizar/dtc/internal/config"
+	clihandler "github.com/AhmadNizar/dtc/internal/delivery/cli"
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
-	// dsn := "host=localhost user=postgres password=postgres dbname=payslip_db port=5432 sslmode=disable TimeZone=Asia/Jakarta"
-	// db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	// if err != nil {
-	// 	log.Fatalf("Failed to connect to database: %v", err)
-	// }
+	app := clihandler.New()
 
-	r := gin.Default()
+	app.Name = "backpack-platform"
+	app.Usage = "Supply all data needed"
+	app.Version = "1.0.0"
 
-	// Test health route
-	r.GET("/health", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "OK"})
-	})
+	app.Action = func(c *cli.Context) error {
+		cfg := config.LoadConfig()
 
-	r.Run(":8080")
+		log.Println("Starting gajian platform...")
+		gajian.Start(cfg)
+
+		return nil
+	}
+
+	log.Println("Starting server on :8080")
+	err := app.Run(os.Args)
+
+	if err != nil {
+		log.Fatalf("could not start server: %v", err)
+	}
 }
