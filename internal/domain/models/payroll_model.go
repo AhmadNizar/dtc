@@ -28,3 +28,7 @@ type Payroll struct {
 	RequestIP string     `gorm:"type:inet"`
 	RequestID string
 }
+
+func (Payroll) TableName() string {
+	return "payrolls"
+}

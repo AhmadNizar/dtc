@@ -22,3 +22,7 @@ type Overtime struct {
 	User          *User `gorm:"foreignKey:UserID;references:ID"`
 	CreatedByUser *User `gorm:"foreignKey:CreatedBy;references:ID"`
 }
+
+func (Overtime) TableName() string {
+	return "overtimes"
+}

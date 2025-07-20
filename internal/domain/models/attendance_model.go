@@ -20,3 +20,7 @@ type Attendance struct {
 	User          *User `gorm:"foreignKey:UserID"`
 	CreatedByUser *User `gorm:"foreignKey:CreatedBy"`
 }
+
+func (Attendance) TableName() string {
+	return "attendances"
+}

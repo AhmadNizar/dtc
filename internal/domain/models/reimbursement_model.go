@@ -23,3 +23,7 @@ type Reimbursement struct {
 	CreatedByUser *User `gorm:"foreignKey:CreatedBy"`
 	UpdatedByUser *User `gorm:"foreignKey:UpdatedBy"`
 }
+
+func (Reimbursement) TableName() string {
+	return "reimbursements"
+}

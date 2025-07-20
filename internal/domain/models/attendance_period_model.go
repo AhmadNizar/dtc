@@ -16,3 +16,7 @@ type AttendancePeriod struct {
 
 	CreatedByUser *User `gorm:"foreignKey:CreatedBy"`
 }
+
+func (AttendancePeriod) TableName() string {
+	return "attendance_periods"
+}

@@ -28,6 +28,10 @@ type Payslip struct {
 	Period *AttendancePeriod `gorm:"foreignKey:PeriodID"`
 }
 
+func (Payslip) TableName() string {
+	return "payslips"
+}
+
 type EmployeePayslipSummary struct {
 	EmployeeID   uuid.UUID `json:"employee_id"`
 	EmployeeName string    `json:"employee_name"`
